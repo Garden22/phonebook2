@@ -3,7 +3,6 @@ package com.javaex.controller;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.javaex.dao.PhoneDao;
+import com.javaex.util.WebUtil;
 import com.javaex.vo.PersonVo;
 
 @WebServlet("/pbc")
@@ -26,8 +26,7 @@ public class PhoneController extends HttpServlet {
 		
 		switch (action) {
 			case "writeForm":
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/writeForm.jsp");
-				rd.forward(request, response);
+				WebUtil.forward(request, response, "/WEB-INF/writeForm.jsp");
 				break;
 			
 			case "list":		
@@ -36,8 +35,7 @@ public class PhoneController extends HttpServlet {
 				
 				request.setAttribute("pList", pList);
 				
-				rd = request.getRequestDispatcher("/WEB-INF/list.jsp");
-				rd.forward(request, response);
+				WebUtil.forward(request, response, "/WEB-INF/list.jsp");
 				break;
 				
 			case "write":
@@ -48,7 +46,7 @@ public class PhoneController extends HttpServlet {
 				phoneDao = new PhoneDao();
 				phoneDao.personInsert(new PersonVo(name, hp, company));
 				
-				response.sendRedirect("/phonebook2/pbc?action=list");
+				WebUtil.redirect(request, response, "/phonebook2/pbc?action=list");
 				break;
 				
 			case "delete":
@@ -57,7 +55,7 @@ public class PhoneController extends HttpServlet {
 				phoneDao = new PhoneDao();
 				phoneDao.personDelete(id);
 				
-				response.sendRedirect("/phonebook2/pbc?action=list");
+				WebUtil.redirect(request, response, "/phonebook2/pbc?action=list");
 				break;
 				
 			case "updateForm":
@@ -69,8 +67,7 @@ public class PhoneController extends HttpServlet {
 				request.setAttribute("id", id);
 				request.setAttribute("p", p);
 				
-				rd = request.getRequestDispatcher("/WEB-INF/updateForm.jsp");
-				rd.forward(request, response);
+				WebUtil.forward(request, response, "/WEB-INF/updateForm.jsp");
 				break;
 				
 			case "update":
@@ -82,7 +79,7 @@ public class PhoneController extends HttpServlet {
 				phoneDao = new PhoneDao();
 				phoneDao.personUpdate(id, new PersonVo(name, hp, company));
 				
-				response.sendRedirect("/phonebook2/pbc?action=list");
+				WebUtil.redirect(request, response, "/phonebook2/pbc?action=list");
 				break;				
 		}
 	}
