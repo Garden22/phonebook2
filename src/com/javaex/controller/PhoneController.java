@@ -26,7 +26,7 @@ public class PhoneController extends HttpServlet {
 		
 		switch (action) {
 			case "writeForm":
-				RequestDispatcher rd = request.getRequestDispatcher("./writeForm.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/writeForm.jsp");
 				rd.forward(request, response);
 				break;
 			
@@ -36,7 +36,7 @@ public class PhoneController extends HttpServlet {
 				
 				request.setAttribute("pList", pList);
 				
-				rd = request.getRequestDispatcher("./list.jsp");
+				rd = request.getRequestDispatcher("/WEB-INF/list.jsp");
 				rd.forward(request, response);
 				break;
 				
@@ -69,7 +69,7 @@ public class PhoneController extends HttpServlet {
 				request.setAttribute("id", id);
 				request.setAttribute("p", p);
 				
-				rd = request.getRequestDispatcher("./updateForm.jsp");
+				rd = request.getRequestDispatcher("/WEB-INF/updateForm.jsp");
 				rd.forward(request, response);
 				break;
 				
